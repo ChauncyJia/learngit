@@ -1,0 +1,181 @@
+1.安装git
+
+	Mac OS 直接安装 Command line tools 在 apple 官网
+	git --version 查看git版本
+
+2.安装完成后的设置
+
+# 查看
+	git config user.name
+	git config user.email
+
+#修改
+	git config --global user.name <your name>
+	git config --global user.email <your email>
+3.创建版本库
+
+#创建一个文件夹 
+	mkdir learn_git
+#访问此文件夹 
+	cd learn_git
+#初始化库文件
+	git init
+
+#编写一个文件readme.txt
+
+
+#将文件添加的暂存区
+	git add readme.txt
+
+#将文件添加到当前分支； message 是提交的说明
+	git commit -m '<message>'
+
+#修补上一次commit。这样之前的一次commit就会变成你新提交的commit。
+	git commit -m "<message>" --amend
+	
+
+
+4.查看修改的不同
+
+#修改文件readme.txt
+
+#查看git状态
+	git status
+
+#查看某个文件的不同
+	git diff readme.txt
+
+
+
+git diff 			 (# worktree & stage )
+git diff 			 (HEAD # worktree & HEAD )
+git diff --cached		 (# stage & HEAD )
+git diff <commit> <commit> 	 (# between two commits)
+
+
+
+5.版本回退
+
+#修改文件readme.txt
+
+#提交暂存区
+	git add readme.txt
+#提交工作区
+	git commit -m '<message>'
+
+
+#查看历史记录 显示每次提交的说明等信息
+	git log
+
+#简要说明
+	git log --pretty=oneline
+
+#回退到上一个版本
+	git reset --hard HEAD^
+
+#回退到某个版本
+	git reset --hard <commit id >
+
+#后悔回退怎么办？
+#查看每一次的命令
+	git reflog
+#然后找到新版本的 commit id
+	git reset --hard <commit id >
+
+6.管理修改
+
+#git管理的是修改
+
+#当你用git add命令后，在工作区的第一次修改被放入暂存区，准备提交，但是，在工作区的第二次修改并没有放入暂存区，所以，git commit只负责把暂存区的修改提交了，也就是第一次的修改被提交了，第二次的修改不会被提交
+
+第一次修改 -> git add -> 第二次修改 -> git commit
+
+#查看工作区和版本库里面最新版本的区别
+	git diff HEAD -- readme.txt
+
+#修正
+第一次修改 -> git add -> 第二次修改 -> git add -> git commit
+
+
+7.撤销修改
+
+#修改readme.txt文件
+
+#查看git
+	git status
+
+#状态在add前
+
+#丢弃修改
+	git checkout -- readme.txt
+
+
+#修改readme.txt文件,并且已经add在暂存区
+
+#撤销暂存区的修改
+	git reset HEAD readme.txt
+
+#再一次丢弃修改
+	git checkout -- readme.txt
+
+
+8.删除文件
+
+#删除readme.txt
+	rm readme.txt
+
+#此时也是修改，解决方法如下
+	git rm readme.txt
+#commit 修改
+	git commit -m '<message>'
+
+#另一种方法是将删除文件恢复(add前 ，rm？？？ Add？？？)
+	git checkout -- readme.txt
+
+#git add放到暂存区的文件取消暂存
+git rm --cached 123.txt
+
+9.GitHub
+
+#创建 SSH Key
+打开终端 默认位置/Users/abc
+
+ssh-keygen -t rsa -C "chauncyjia@outlook.com"
+
+此目录下生成.ssh文件 文件夹下的id_rsa.pub是公钥
+
+
+登陆到GitHub 上找到个人设置的 Account Setting 'SSH Keys'页面，key粘贴保存
+
+
+在GitHub上创建一个库后 可以查看到当前库的ssh
+例如：git@github.com:ChauncyJia/learngit.git
+
+将本地仓库推送GitHub，在本地库文件下打开终端
+	git remote add origin git@github.com:ChauncyJia/learngit.git
+#远程库的名字是origin
+
+#本地内容推送(-u是因为hub库是空的）
+	git push -u origin main
+#后续推送
+	git push origin main
+
+#删除远程库前查看远程库信息
+	git remote -v
+#删除远程库
+	git remoto rm <name>
+
+#克隆
+	GitHub 上找到库的SSH
+	新建一个文件夹代表要克隆的库，然后打开终端
+	git clone git@github.com:ChauncyJia/learngit.git
+
+
+
+
+
+
+
+
+
+
